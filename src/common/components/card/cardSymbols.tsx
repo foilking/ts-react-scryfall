@@ -8,8 +8,6 @@ interface Props {
 
 export const CardSymbols: React.StatelessComponent<Props> = ({content, cardName}) => {
     const contentSections = content.split(/({\w})/g);
-    console.log(cardName)
-    console.log(contentSections); 
     return (
         <text>
             {contentSections.map((contentSection, key) => {
@@ -105,7 +103,7 @@ export const CardSymbols: React.StatelessComponent<Props> = ({content, cardName}
                     );
                 } else {
                     return (
-                        <text>{contentSection}</text>
+                        <text key={key}>{contentSection}</text>
                     )
                 }
             })}

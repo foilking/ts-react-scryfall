@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Running through Lemoncode's react demo",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --inline --watch-content-base --history-api-fallback",
     "build": "webpack"
   },
   "author": "",

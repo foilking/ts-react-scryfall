@@ -78,11 +78,11 @@ export class Header extends React.Component<HeaderProps, State>{
 
 
 
-function search (props: HeaderProps, keyCode: number, value: string) {
-    if (keyCode === 13) {
-        document.title = value;
-        props.fetchFilteredCards({
-            q: value
-        } as SearchTerms);
-    }
+const search = (props: HeaderProps, keyCode: number, value: string) => {
+  if (keyCode === 13) {
+      document.title = value;
+      props.fetchFilteredCards({
+          q: value
+      } as SearchTerms);
+  }
 };

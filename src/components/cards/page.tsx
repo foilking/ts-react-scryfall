@@ -12,7 +12,6 @@ interface Props {
 
 interface State {
     searchTerms: SearchTerms;
-    cards: Card[];
 }
 
 interface PrintingProps {
@@ -28,8 +27,7 @@ export class CardsPage extends React.Component<Props, State>{
         } as SearchTerms;
 
         this.state = {
-            searchTerms: this.props.searchTerms || searchTerms,
-            cards: []
+            searchTerms: this.props.searchTerms || searchTerms
         };
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
     }
