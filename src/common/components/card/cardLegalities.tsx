@@ -11,22 +11,22 @@ interface RowProps {
 }
 
 export const CardLegalities: React.StatelessComponent<Props> = ({legalities}) => {
-    var cardLegal = Object.keys(legalities);
-    var groupSize = 2;
+    const cardLegal = Object.keys(legalities);
+    const groupSize = 2;
     // Logic for the rows from here: https://stackoverflow.com/questions/34458165/how-to-surround-every-x-elements-with-a-class-using-react-js/34458452#34458452
-    var rows = cardLegal.map(function(content, key) {
-        var legalName = legalities[content] as string;
+    const rows = cardLegal.map((content, key) => {
+        const legalName = legalities[content] as string;
         return (
             <div className="card-legality-item" key={key}>
                 <dt>{_capitalize(content)}</dt>
                 <dd className={legalName.replace('_', '-')}>{_capitalize(legalName.replace('_', ' '))}</dd>
             </div>
         )
-    }).reduce(function (r, element, index) {
+    }).reduce((r, element, index) => {
         index % groupSize === 0 && r.push([]);
         r[r.length - 1].push(element);
         return r;
-    }, []).map(function(rowContent, key) {
+    }, []).map((rowContent, key) => {
         return <div className="card-legality-row" key={key}>{rowContent}</div>;
     })
     return (

@@ -3562,7 +3562,8 @@ img.card.cei,img.card.ced {
  max-height:24px;
  position:absolute;
  top:14px;
- width:24px
+ width:24px;
+ filter: invert(1);
 }
 .prints-current-set-symbol path,.prints-current-set-symbol ellipse {
  fill:#FEFEFE

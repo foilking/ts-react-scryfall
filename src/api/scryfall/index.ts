@@ -2,7 +2,7 @@ import _filter from 'lodash/filter';
 import _orderBy from 'lodash/orderBy';
 import _uniqBy from 'lodash/uniqBy';
 import _capitalize from 'lodash/capitalize';
-import { Card, CardsResponse, CardResponse, SearchTerms, Set, SetsResponse } from '../../model';
+import { Card, CardsResponse, CardResponse, SearchTerms, Set, SetsResponse, CardSymbol } from '../../model';
 import * as QueryString from 'query-string';
 import {deserialize} from 'json-typescript-mapper';
 
@@ -14,11 +14,12 @@ interface SetSearchTerms {
 }
 
 const fetchFilteredCardsAsync = (params: SearchTerms): Promise<Card[]> => {
+    // TODO: When the SearchTerms object gets more complicated, this will need to be replaced
     const queryString = QueryString.stringify(params);
-    const cardsURL = `${baseURL}/cards/search?${queryString}`;
+    const cardsURL = `${baseURL}/cards/search?${queryString}`; //+include%3Aextras
     return fetch(cardsURL)
         .then((response) => (response.json()))
-        .then(mapResponseToCards);
+        .then(mapToCards);
 };
 
 const fetchCardByMultiverseIdAsync = (id: string): Promise<Card> => {
@@ -32,15 +33,15 @@ const fetchCardByMultiverseIdAsync = (id: string): Promise<Card> => {
 const fetchCardByCodeAndCollectorNumberAsync = (code: string, collector_number: string): Promise<Card> => {
     const cardUrl = `${baseURL}/cards/${code}/${collector_number}`;
     
-        return fetch(cardUrl)
-            .then((response) => (response.json()))
-            .then(mapToCard);
+    return fetch(cardUrl)
+        .then((response) => (response.json()))
+        .then(mapToCard);
 }
 
-const mapResponseToCards = (response): Card[] => {
-    var cards = response.data;
+const mapToCards = (response): Card[] => {
+    const cards = response.data;
     if (cards) {
-        var mappedCards = cards.map(mapToCard);
+        const mappedCards = cards.map(mapToCard);
         return mappedCards;
     }
     console.log(`${_capitalize(response.object)}: ${response.details}`);
@@ -80,7 +81,7 @@ const mapToCard = (card): Card => {
         prints_search_uri: card.prints_search_uri,
         collector_number: card.collector_number,
         digital: card.digital,
-        rarity: card.rarity,
+        rarity: _capitalize(card.rarity),
         artist: card.artist,
         frame: card.frame,
         full_art: card.full_art,
@@ -101,6 +102,39 @@ const mapToCard = (card): Card => {
     };
 };
 
+const fetchCardSymbology = (): Promise<CardSymbol[]> => {
+    const symbolUrl = `${baseURL}/symbology`;
+
+    return fetch(symbolUrl)
+        .then((response) => (response.json()))
+        .then(mapToSymbols);
+};
+
+const mapToSymbols = (response): CardSymbol[] => {
+    const symbols = response.data;
+    if (symbols) {
+        const mappedSymbols = symbols.map(mapToSymbol);
+        return mappedSymbols;
+    }
+    console.log(`${_capitalize(response.object)}: ${response.details}`);
+    return [];
+};
+
+const mapToSymbol = (symbol): CardSymbol => {
+    return {
+        object: symbol.object,
+        symbol: symbol.symbol,
+        loose_variant: symbol.loose_variant,
+        english: symbol.english,
+        transposable: symbol.transposable,
+        represents_mana: symbol.represents_mana,
+        appears_in_mana_costs: symbol.appears_in_mana_costs,
+        cmc: symbol.cmc,
+        funny: symbol.funny,
+        colors: symbol.colors
+    };
+}
+
 const fetchSetsAsync = (): Promise<Set[]> => {
     const setsURL = `${baseURL}/sets`;
     return fetch(setsURL)
@@ -109,7 +143,7 @@ const fetchSetsAsync = (): Promise<Set[]> => {
 }
 
 const mapResponseToSets = (response: SetsResponse): Set[] => {
-    var sets = response.sets;
+    const sets = response.sets;
 
     return sets.map(mapToSet);
 }
@@ -131,5 +165,6 @@ const mapToSet = (set): Set => {
 export const scryfall = {
     fetchFilteredCardsAsync,
     fetchCardByMultiverseIdAsync,
-    fetchCardByCodeAndCollectorNumberAsync
+    fetchCardByCodeAndCollectorNumberAsync,
+    fetchCardSymbology
 };

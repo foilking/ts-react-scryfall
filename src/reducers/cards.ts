@@ -1,5 +1,5 @@
 import { actionTypes } from '../common/constants/actionTypes';
-import { Card, SearchTerms } from '../model';
+import { Card } from '../model';
 
 export const cardsReducer = (state: Card[] = [], action) => {
     switch (action.type) {

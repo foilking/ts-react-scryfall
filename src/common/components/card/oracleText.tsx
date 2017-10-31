@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { numberToWords } from 'number-to-words';
+import { CardSymbols } from './cardSymbols';
 
 
 interface OracleProps {
@@ -16,12 +17,12 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
     return (
         <div className={oracleClass}>
             {/* Split the Oracle text into separate lines */}
-            {oracleText.split('\n').map(function (line, lineKey) {
+            {oracleText.split('\n').map((line, lineKey) => {
                 const textFragments = [] as TextFragment[];
                 // If there's an ability word, italicize it
                 if (line.indexOf('\u2014') > -1) {
-                    var ability = line.substring(0, line.indexOf('\u2014') - 1);
-                    var textLine = {
+                    const ability = line.substring(0, line.indexOf('\u2014') - 1);
+                    const textLine = {
                         line: ability,
                         isItalicized: true
                     } as TextFragment;
@@ -31,7 +32,7 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
                 // This should only run once, but I have a feeling there's at least one card with reminder text twice in the same line
                 while (line.indexOf("(") > -1) {
                     // Get everything up to the open parens
-                    var textLine = {
+                    const textLine = {
                         line: line.substring(0, line.indexOf("(") - 1),
                         isItalicized: false
                     } as TextFragment;
@@ -39,7 +40,7 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
                     textFragments.push(textLine);
 
                     // Get everything up to the closing parens
-                    var reminderLine = {
+                    const reminderLine = {
                         line: line.substring(0, line.indexOf(')') + 1),
                         isItalicized: true
                     } as TextFragment;
@@ -53,15 +54,18 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
                 
                 return (
                     <p key={lineKey}>
-                    {textFragments.map(function (content, contentKey) {
-                        const symbols = content.line.split(/({\w})/g);
+                    {textFragments.map((content, contentKey) => {
                         if (content.isItalicized) {
                             return (
-                                <i key={contentKey}>{symbols.map(replaceSymbols)}</i>
+                                <i key={contentKey}>
+                                    <CardSymbols content={content.line} cardName={contentKey.toString()} />
+                                </i>
                             )
                         } else {
                             return (
-                                <text key={contentKey}>{symbols.map(replaceSymbols)}</text>
+                                <text key={contentKey}>
+                                    <CardSymbols content={content.line} cardName={contentKey.toString()} />
+                                </text>
                             )
                         }
                     })}
@@ -70,50 +74,4 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
             })}
         </div>
     )
-}
-
-function replaceSymbols (content: string) {
-    if (content.indexOf('{') > -1) {
-        var symbolCharacter = content.replace(/}/g,' ').replace(/{/g, '').trim();
-        var symbolClass = `card-symbol card-symbol-${symbolCharacter}`;
-        var symbolTitle = '';
-        switch (symbolCharacter)
-        {
-            case 'U':
-                symbolTitle = "one blue mana";
-                break;
-            case 'W':
-                symbolTitle = "one white mana";
-                break;
-            case 'B':
-                symbolTitle = "one black mana";
-                break;
-            case 'R':
-                symbolTitle = "one red mana";
-                break;
-            case 'G':
-                symbolTitle = "one green mana";
-                break;
-            case 'X':
-                symbolTitle = "generic mana";
-                break;
-            case 'T':
-                symbolTitle = "tap this permanent";
-                break;
-            case 'C':
-                symbolTitle = "one colorless mana";
-                break;
-            default:
-                var numberString = numberToWords.toWords(symbolCharacter);
-                symbolTitle = `${numberString} generic mana`;
-                break;
-        }
-        return (
-            <abbr className={symbolClass} title={symbolTitle}>{content}</abbr>
-        )
-    } else {
-        return (
-            <text>{content}</text>
-        )
-    }
 }

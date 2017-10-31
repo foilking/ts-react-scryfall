@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Card, SearchTerms, Legalities, CardProps } from '../../../model';
 import { CardImage } from './cardImage';
 import { CardDetails } from './cardDetails';
+import { CardPrints } from './cardPrints';
 
 interface CardState {
     isTransformed: boolean;
@@ -27,7 +28,7 @@ export class CardFullLayout extends React.Component<CardProps, CardState> {
     }
 
     public render() {
-        var {card} = this.props;
+        const {card} = this.props;
         return (
             <div className="card-profile">
                 <div className="inner-flex">
@@ -45,6 +46,7 @@ export class CardFullLayout extends React.Component<CardProps, CardState> {
                         }
                     </div>
                     <CardDetails card={card} />
+                    <CardPrints card={card} />
                 </div>
             </div>
         );

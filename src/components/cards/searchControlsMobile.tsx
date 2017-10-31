@@ -4,6 +4,7 @@ interface SortMobileProps {
 
 }
 
+{/* TODO: Make this not static */}
 export const SearchControlsMobile: React.StatelessComponent<SortMobileProps> = () => {
     return (
         <div className="search-controls-mobile">

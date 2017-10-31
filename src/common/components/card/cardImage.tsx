@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, CardProps } from '../../../model';
+import { Card } from '../../../model';
 
 export interface CardImageProps {
     card: Card;
@@ -22,10 +22,10 @@ export class CardImage extends React.Component<CardImageProps, CardImageState>  
     }
 
     public render() {
-        var {card} = this.props;
-        var className = `card ${card.set} border-${card.border_color}`;
+        const {card} = this.props;
+        const className = `card ${card.set} border-${card.border_color}`;
         if (card.layout === "transform") {
-            var imageClass = `card-image ${this.props.isTransformed ? "flip-backside" : "" }`
+            const imageClass = `card-image ${this.props.isTransformed ? "flip-backside" : "" }`
             return (
                 <div className={imageClass}>
                     <div className="card-image-front">

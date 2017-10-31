@@ -3,7 +3,6 @@ import { Card, SearchTerms } from '../../model';
 import { Header } from '../../components';
 import { CardFullLayout } from '../../common/components/card';
 import { SearchControls } from './searchControls';
-// import { SearchControlsMobile } from './searchControlsMobile';
 
 interface Props {
     cards: Card[];
@@ -68,7 +67,7 @@ export class CardsPage extends React.Component<Props, State>{
 };
 
 
-function onKeyUp (props: Props, keyCode: number, value: string) {
+const onKeyUp = (props: Props, keyCode: number, value: string) => {
     if (keyCode === 13) {
         document.title = value;
         props.fetchFilteredCards({

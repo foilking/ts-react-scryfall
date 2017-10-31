@@ -4,6 +4,7 @@ interface SortProps {
     results: number;
 }
 
+{/* TODO: Make this not static */}
 export const SearchControls: React.StatelessComponent<SortProps> = ({results}) => {
     return (
         <div className="search-controls">
