@@ -7,7 +7,7 @@ import {OracleText} from './oracleText';
 
 export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
     const artistLink = `/search?q=%2B%2Ba%3A%22${card.artist.replace(' ', '+')}%22`
-    if (card.layout === "transform") {
+    if (card.layout === "transform" || card.layout === "flip") {
         const cardFront = card.card_faces[0];
         const cardBack = card.card_faces[1];
         return (
@@ -40,7 +40,7 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                         </div>
                     }
                 </div>
-                {(cardFront.type_line.includes('Creature') || cardFront.type_line.includes('Planeswalker')) &&
+                {cardFront.type_line && (cardFront.type_line.includes('Creature') || cardFront.type_line.includes('Planeswalker')) &&
                     <div className="card-text-stats">
                         {cardFront.type_line.includes('Creature') &&
                             `${cardFront.power}/${cardFront.toughness}`
@@ -75,7 +75,7 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                         </div>
                     }
                 </div>
-                {cardBack.type_line.includes('Creature') &&
+                {cardBack.type_line && cardBack.type_line.includes('Creature') &&
                     <div className="card-text-stats">
                         {cardBack.power}/{cardBack.toughness}
                     </div>
@@ -118,7 +118,7 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                         </div>
                     }
                 </div>
-                {(card.type_line.includes('Creature') || card.type_line.includes('Planeswalker')) &&
+                {card.type_line && (card.type_line.includes('Creature') || card.type_line.includes('Planeswalker')) &&
                     <div className="card-text-stats">
                         {card.type_line.includes('Creature') &&
                             `${card.power}/${card.toughness}`
