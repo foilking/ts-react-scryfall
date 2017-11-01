@@ -5,8 +5,9 @@ import { SearchTerms } from '../../model';
 import { fetchFilteredCardsAction } from './actions/fetchFilteredCards';
 import { CardsPage } from './page';
 
-const mapStateToProps = (state: State) => ({
-    cards: state.cards
+const mapStateToProps = (state: State, ownProps: any) => ({
+    cards: state.cards,
+    location: ownProps.location,
 });
 
 const mapDispatchToProps = (dispatch) => ({

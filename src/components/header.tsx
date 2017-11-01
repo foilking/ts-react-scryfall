@@ -5,6 +5,7 @@ import { SearchTerms } from '../model';
 interface HeaderProps {
   keyword: string,
   fetchFilteredCards: (searchTerms: SearchTerms) => void;
+  location: Location;
 }
 interface State {
 

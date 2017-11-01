@@ -10,7 +10,7 @@ interface Props {
     fetchCardByCodeAndCollectorNumber: (setCode: string, collectorNumber: string) => void;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     card: Card;
-    location: any;
+    location: Location;
 }
 
 interface State {
@@ -45,7 +45,7 @@ export class CardPage extends React.Component<Props, State> {
             const {card, fetchFilteredCards} = this.props;
             return (
                 <div className="cardPage">
-                    <Header keyword="" fetchFilteredCards={fetchFilteredCards}/>
+                    <Header keyword="" fetchFilteredCards={fetchFilteredCards} location={location}/>
                     <div id="main" className="main">
                         <CardFullLayout card={card}/>
                         <div className="toolbox">

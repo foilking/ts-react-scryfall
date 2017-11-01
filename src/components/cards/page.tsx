@@ -8,6 +8,7 @@ interface Props {
     cards: Card[];
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     searchTerms: SearchTerms;
+    location: Location;
 }
 
 interface State {
@@ -30,6 +31,7 @@ export class CardsPage extends React.Component<Props, State>{
             searchTerms: this.props.searchTerms || searchTerms
         };
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
+        console.log(location);
     }
 
     public componentDidMount() {
@@ -47,7 +49,7 @@ export class CardsPage extends React.Component<Props, State>{
         const { fetchFilteredCards } = this.props;
         return (
             <div className="cardsPage">
-                <Header keyword={searchTerms.q} fetchFilteredCards={fetchFilteredCards}/>
+                <Header keyword={searchTerms.q} fetchFilteredCards={fetchFilteredCards} location={location}/>
                 <div id="main" className="main">
                     <SearchControls results={5} />
                     {/* <SearchControlsMobile /> */}
