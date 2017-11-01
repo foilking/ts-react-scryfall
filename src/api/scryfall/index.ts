@@ -13,7 +13,7 @@ interface SetSearchTerms {
     block: string;
 }
 
-const fetchFilteredCardsAsync = (params: SearchTerms): Promise<Card[]> => {
+const fetchFilteredCardsAsync = (params: SearchTerms): Promise<CardsResponse> => {
     // TODO: When the SearchTerms object gets more complicated, this will need to be replaced
     const queryString = QueryString.stringify(params);
     const cardsURL = `${baseURL}/cards/search?${queryString}`; //+include%3Aextras
@@ -38,14 +38,20 @@ const fetchCardByCodeAndCollectorNumberAsync = (code: string, collector_number: 
         .then(mapToCard);
 }
 
-const mapToCards = (response): Card[] => {
+const mapToCards = (response): CardsResponse => {
     const cards = response.data;
+    const totalCards = response.total_cards;
+    const hasMore = response.has_more;
     if (cards) {
         const mappedCards = cards.map(mapToCard);
-        return mappedCards;
+        return {
+            cards: mappedCards,
+            has_more: response.has_more,
+            total_cards: response.total_cards
+        } as CardsResponse;
     }
     console.log(`${_capitalize(response.object)}: ${response.details}`);
-    return [];
+    return null as CardsResponse;
 };
 
 const mapToCard = (card): Card => {

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { MemberEntity, MemberErrors, Card, SearchTerms, Set, CardSymbol } from '../model';
+import { MemberEntity, MemberErrors, Card, SearchTerms, Set, CardSymbol, CardsResponse } from '../model';
 import { membersReducer } from './members';
 import { memberReducer } from './member';
 import { memberErrorsReducer } from './memberErrors';
@@ -11,17 +11,18 @@ export interface State {
   members: MemberEntity[];
   member: MemberEntity;
   memberErrors: MemberErrors;
-  cards: Card[];
+  cardsResult: CardsResponse;
   card: Card;
   sets: Set[];
   cardSymbols: CardSymbol[];
+
 };
 
 export const state = combineReducers<State>({
   members: membersReducer,
   member: memberReducer,
   memberErrors: memberErrorsReducer,
-  cards: cardsReducer,
+  cardsResult: cardsReducer,
   card: cardReducer,
   cardSymbols: cardSymbolsReducer
 });

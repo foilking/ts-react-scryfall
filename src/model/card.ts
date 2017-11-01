@@ -107,10 +107,9 @@ export class Card {
 }
 
 export interface CardsResponse {
-    object: string;
     total_cards: number;
     has_more: boolean;
-    data: Card[];
+    cards: Card[];
 }
 
 export interface CardResponse {

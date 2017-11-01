@@ -6,7 +6,7 @@ import { fetchFilteredCardsAction } from './actions/fetchFilteredCards';
 import { CardsPage } from './page';
 
 const mapStateToProps = (state: State, ownProps: any) => ({
-    cards: state.cards,
+    cardsResult: state.cardsResult,
     location: ownProps.location,
 });
 

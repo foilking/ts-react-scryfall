@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Card, SearchTerms } from '../../model';
+import { CardsResponse, SearchTerms } from '../../model';
 import { Header } from '../../components';
 import { CardFullLayout } from '../../common/components/card';
 import { SearchControls } from './searchControls';
 
 interface Props {
-    cards: Card[];
+    cardsResult: CardsResponse;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     searchTerms: SearchTerms;
     location: Location;
@@ -45,19 +45,19 @@ export class CardsPage extends React.Component<Props, State>{
 
     public render() {
         const {searchTerms} = this.state;
-        const { fetchFilteredCards } = this.props;
+        const { fetchFilteredCards, cardsResult } = this.props;
         return (
             <div className="cardsPage">
                 <Header keyword={searchTerms.q} fetchFilteredCards={fetchFilteredCards} location={location}/>
                 <div id="main" className="main">
-                    <SearchControls results={5} />
+                    <SearchControls results={cardsResult ? cardsResult.total_cards : 0} />
                     {/* <SearchControlsMobile /> */}
-                    {this.props.cards.map(function(item, key) {
+                    {cardsResult && cardsResult.cards.map(function(item, key) {
                         return (
                             <CardFullLayout card={item} key={key} />
                         )
                     })}
-                    <SearchControls results={5} />
+                    <SearchControls results={cardsResult ? cardsResult.total_cards : 0} />
                     {/* <SearchControlsMobile /> */}
                 </div>
             </div>
