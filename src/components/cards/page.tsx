@@ -31,7 +31,6 @@ export class CardsPage extends React.Component<Props, State>{
             searchTerms: this.props.searchTerms || searchTerms
         };
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
-        console.log(location);
     }
 
     public componentDidMount() {

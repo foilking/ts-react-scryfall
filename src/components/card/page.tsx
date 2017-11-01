@@ -23,7 +23,6 @@ export class CardPage extends React.Component<Props, State> {
         super();
         this.fetchCardByCodeAndCollectorNumber = this.fetchCardByCodeAndCollectorNumber.bind(this);
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
-        console.log(location);
     }
 
     public componentDidMount() {
