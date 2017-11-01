@@ -19,6 +19,7 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
             {/* Split the Oracle text into separate lines */}
             {oracleText.split('\n').map((line, lineKey) => {
                 const textFragments = [] as TextFragment[];
+                
                 // If there's an ability word, italicize it
                 if (line.indexOf('\u2014') > -1) {
                     const ability = line.substring(0, line.indexOf('\u2014') - 1);
@@ -29,6 +30,7 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
                     textFragments.push(textLine);
                     line = line.substring(line.indexOf('\u2014') - 1);
                 }
+
                 // This should only run once, but I have a feeling there's at least one card with reminder text twice in the same line
                 while (line.indexOf("(") > -1) {
                     // Get everything up to the open parens
@@ -47,11 +49,12 @@ export const OracleText: React.StatelessComponent<OracleProps> = ({oracleText, o
                     line = line.substring(line.indexOf(')') + 1);
                     textFragments.push(reminderLine);
                 }
+                
                 textFragments.push({
                     line: line,
                     isItalicized: false
                 } as TextFragment);
-                
+
                 return (
                     <p key={lineKey}>
                     {textFragments.map((content, contentKey) => {

@@ -23,7 +23,7 @@ export class CardsPage extends React.Component<Props, State>{
         super(props);
 
         var searchTerms = {
-            q: "bear"
+            q: "reaper"
         } as SearchTerms;
 
         this.state = {
@@ -61,15 +61,5 @@ export class CardsPage extends React.Component<Props, State>{
                 </div>
             </div>
         )
-    }
-};
-
-
-const onKeyUp = (props: Props, keyCode: number, value: string) => {
-    if (keyCode === 13) {
-        document.title = value;
-        props.fetchFilteredCards({
-            q: value
-        } as SearchTerms);
     }
 };

@@ -7,13 +7,13 @@ interface Props {
 }
 
 export const CardSymbols: React.StatelessComponent<Props> = ({content, cardName}) => {
-    const contentSections = content.split(/({\w})/g);
+    const contentSections = content.split(/(\{[A-Z0-9]?[/]?[A-Z0-9]+\})/g).filter(String);
     return (
         <text>
             {contentSections.map((contentSection, key) => {
                 if (contentSection.indexOf('{') > -1) {
                     const symbolCharacter = contentSection.replace(/}/g,'').replace(/{/g, '').trim();
-                    const symbolClass = `card-symbol card-symbol-${symbolCharacter}`;
+                    const symbolClass = `card-symbol card-symbol-${symbolCharacter.replace('/', '')}`;
                     let symbolTitle = '';
                     // TODO: Replace this with results from fetchCardSymbology and filter that way.
                     switch (symbolCharacter)
@@ -67,7 +67,55 @@ export const CardSymbols: React.StatelessComponent<Props> = ({content, cardName}
                             symbolTitle = "one blue or black mana";
                             break;
                         case 'U/R':
-                            symbolTitle = "";
+                            symbolTitle = "one blue or red mana";
+                            break;
+                        case 'R/G':
+                            symbolTitle = "one red or green mana";
+                            break;
+                        case 'R/W':
+                            symbolTitle = "one red or white mana";
+                            break;
+                        case 'G/W':
+                            symbolTitle = "one green or white mana";
+                            break;
+                        case 'G/U':
+                            symbolTitle = "one green or blue mana";
+                            break;
+                        case '2/W':
+                            symbolTitle = "two generic mana or one white mana";
+                            break;
+                        case '2/U':
+                            symbolTitle = "two generic mana or one blue mana";
+                            break;
+                        case '2/B':
+                            symbolTitle = "two generic mana or one black mana";
+                            break;
+                        case '2/R':
+                            symbolTitle = "two generic mana or one red mana";
+                            break;
+                        case '2/G':
+                            symbolTitle = "two generic mana or one green mana";
+                            break;
+                        case 'P':
+                            symbolTitle = "one colored mana or two life";
+                            break;
+                        case 'W/P':
+                            symbolTitle = "one white mana or two life";
+                            break;
+                        case 'U/P':
+                            symbolTitle = "one blue mana or two life";
+                            break;
+                        case 'B/P':
+                            symbolTitle = "one black mana or two life";
+                            break;
+                        case 'R/P':
+                            symbolTitle = "one red mana or two life";
+                            break;
+                        case 'G/P':
+                            symbolTitle = "one green mana or two life";
+                            break;
+                        case 'HW':
+                            symbolTitle = "one-half white mana";
                             break;
                         case 'HR':
                             symbolTitle = "one-half red mana";
@@ -75,11 +123,11 @@ export const CardSymbols: React.StatelessComponent<Props> = ({content, cardName}
                         case 'HW':
                             symbolTitle = "one-half white mana";
                             break;
-                        case 'U':
-                            symbolTitle = "one blue mana";
-                            break;
                         case 'W':
                             symbolTitle = "one white mana";
+                            break;
+                        case 'U':
+                            symbolTitle = "one blue mana";
                             break;
                         case 'B':
                             symbolTitle = "one black mana";
@@ -92,6 +140,9 @@ export const CardSymbols: React.StatelessComponent<Props> = ({content, cardName}
                             break;
                         case 'C':
                             symbolTitle = "one colorless mana";
+                            break;
+                        case 'S':
+                            symbolTitle = "one snow mana";
                             break;
                         default:
                             const numberString = numberToWords.toWords(symbolCharacter);
