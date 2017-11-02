@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardsResponse, SearchTerms } from '../../model';
+import { CardsResponse, SearchTerms, SearchOrder } from '../../model';
 import { Header } from '../../components';
 import { CardFullLayout } from '../../common/components/card';
 import { SearchControls } from './searchControls';
@@ -7,7 +7,6 @@ import { SearchControls } from './searchControls';
 interface Props {
     cardsResult: CardsResponse;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
-    searchTerms: SearchTerms;
     location: Location;
 }
 
@@ -15,49 +14,51 @@ interface State {
     searchTerms: SearchTerms;
 }
 
-interface PrintingProps {
-    sets: string[];
-}
-
 export class CardsPage extends React.Component<Props, State>{
     constructor(props) {
         super(props);
-
         var searchTerms = {
-            q: "reaper"
+            q: "reaper",
+            order: SearchOrder.Name,
+            page: 1
         } as SearchTerms;
 
         this.state = {
-            searchTerms: this.props.searchTerms || searchTerms
+            searchTerms: searchTerms
         };
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
     }
 
     public componentDidMount() {
-        document.title = this.state.searchTerms ? this.state.searchTerms.q : "Search";
+        document.title = this.state.searchTerms.q || "Search";
         this.props.fetchFilteredCards(this.state.searchTerms);
     }
 
-    private fetchFilteredCards() {
-        document.title = this.state.searchTerms ? this.state.searchTerms.q : "Search";
-        this.props.fetchFilteredCards(this.state.searchTerms);
+    private fetchFilteredCards(searchTerms: SearchTerms) {
+        console.log("Set State First");
+        
+        this.setState({
+            searchTerms: searchTerms
+        });
+        this.props.fetchFilteredCards(searchTerms);
     }
 
     public render() {
-        const {searchTerms} = this.state;
-        const { fetchFilteredCards, cardsResult } = this.props;
+        const { searchTerms } = this.state;
+        const { cardsResult } = this.props;
+        
         return (
             <div className="cardsPage">
-                <Header keyword={searchTerms.q} fetchFilteredCards={fetchFilteredCards} location={location}/>
+                <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>
                 <div id="main" className="main">
-                    <SearchControls results={cardsResult ? cardsResult.total_cards : 0} />
+                    <SearchControls searchTerms={searchTerms} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={this.fetchFilteredCards} />
                     {/* <SearchControlsMobile /> */}
                     {cardsResult && cardsResult.cards.map(function(item, key) {
                         return (
                             <CardFullLayout card={item} key={key} />
                         )
                     })}
-                    <SearchControls results={cardsResult ? cardsResult.total_cards : 0} />
+                    <SearchControls searchTerms={searchTerms} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={this.fetchFilteredCards} />
                     {/* <SearchControlsMobile /> */}
                 </div>
             </div>

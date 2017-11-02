@@ -5,7 +5,6 @@ import { scryfall } from '../../../api/scryfall';
 export const fetchFilteredCardsAction = (params: SearchTerms) => (dispatch) => {
     scryfall.fetchFilteredCardsAsync(params)
         .then((cardsResponse) => {
-            console.log("Fetch Complete");
             dispatch(fetchFilteredCardsCompleted(cardsResponse));
         });
 };

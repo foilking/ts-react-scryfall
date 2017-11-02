@@ -3,18 +3,28 @@ import { Link } from 'react-router';
 import { SearchTerms } from '../model';
 
 interface HeaderProps {
-  keyword: string,
+  searchTerms: SearchTerms;
   fetchFilteredCards: (searchTerms: SearchTerms) => void;
   location: Location;
 }
 interface State {
-
 }
 
 export class Header extends React.Component<HeaderProps, State>{
   constructor(props) {
       super(props);
+      this.search = this.search.bind(this);
   }
+
+  private search (keyCode: number, q: string) {
+    if (keyCode === 13) {
+        document.title = q;
+        
+        const newSearchTerms = {...this.props.searchTerms, q};
+
+        this.props.fetchFilteredCards(newSearchTerms);
+    }
+  };
 
   public render() {
     return (
@@ -28,7 +38,7 @@ export class Header extends React.Component<HeaderProps, State>{
           <div id="js-header-search" className="header-search">
       
             <label className="visuallyhidden" htmlFor="js-header-search-field">Search for Magic cards</label>
-              <input name="q" id="js-header-search-field" onKeyUp={event => search(this.props, event.keyCode ,event.currentTarget.value)} defaultValue={this.props.keyword} placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
+              <input name="q" id="js-header-search-field" onKeyUp={event => this.search(event.keyCode ,event.currentTarget.value)} defaultValue={this.props.searchTerms.q} placeholder="Search for Magic cards" autoComplete="on" autoCapitalize="none" autoCorrect="off" spellCheck={false} maxLength={1024} type="text" />
       
       
               <input name="as" id="as" value="full" type="hidden" />
@@ -75,15 +85,3 @@ export class Header extends React.Component<HeaderProps, State>{
     );
   }
 }
-
-
-
-
-const search = (props: HeaderProps, keyCode: number, value: string) => {
-  if (keyCode === 13) {
-      document.title = value;
-      props.fetchFilteredCards({
-          q: value
-      } as SearchTerms);
-  }
-};

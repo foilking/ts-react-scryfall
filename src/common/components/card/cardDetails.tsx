@@ -7,7 +7,7 @@ import {OracleText} from './oracleText';
 
 export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
     const artistLink = `/search?q=%2B%2Ba%3A%22${card.artist.replace(' ', '+')}%22`
-    if (card.layout === "transform" || card.layout === "flip") {
+    if (card.layout === "transform" || card.layout === "flip" || card.layout === "split") {
         const cardFront = card.card_faces[0];
         const cardBack = card.card_faces[1];
         return (
@@ -52,6 +52,11 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                 }
                 <h1 className="card-text-title">
                     {cardBack.name}
+                    {cardBack.mana_cost && 
+                        <span className="card-text-mana-cost">
+                            <CardSymbols content={cardBack.mana_cost} cardName={cardBack.name} />
+                        </span>
+                    }
                 </h1>
                 <p className="card-text-type-line">
                     {cardBack.type_line}

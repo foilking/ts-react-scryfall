@@ -14,7 +14,6 @@ interface Props {
 }
 
 interface State {
-    isTransformed: boolean;
     searchTerms: SearchTerms;
 }
 
@@ -44,7 +43,7 @@ export class CardPage extends React.Component<Props, State> {
             const {card, fetchFilteredCards} = this.props;
             return (
                 <div className="cardPage">
-                    <Header keyword="" fetchFilteredCards={fetchFilteredCards} location={location}/>
+                    <Header searchTerms={this.state.searchTerms} fetchFilteredCards={fetchFilteredCards} location={location}/>
                     <div id="main" className="main">
                         <CardFullLayout card={card}/>
                         <div className="toolbox">

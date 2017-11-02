@@ -4,10 +4,11 @@ import { Card } from '../../../model';
 export interface CardImageProps {
     card: Card;
     isTransformed: boolean;
+    isFlipped: boolean;
+    isRotated: boolean;
 }
 
 interface CardImageState {
-    isTransformed: boolean
 }
 
 export class CardImage extends React.Component<CardImageProps, CardImageState>  {
@@ -38,9 +39,20 @@ export class CardImage extends React.Component<CardImageProps, CardImageState>  
             );
             
         } else {
-            
+            let decoratorClass = "";
+            if (this.props.isFlipped) {
+                decoratorClass = "rotate-180";
+            } else if (this.props.isRotated) {
+                const cardBack = card.card_faces[1];
+                if (cardBack.oracle_text.indexOf("Aftermath") > -1){
+                    decoratorClass = "rotate-90ccw";
+                } else {
+                    decoratorClass = "rotate-90cw";
+                }
+            }
+            const imageClass = `card-image ${decoratorClass}`
             return (
-                <div className="card-image">
+                <div className={imageClass}>
                     <div className="card-image-front">
                         <img src={card.image_uris.large} title={card.name} className={className} />
                     </div>

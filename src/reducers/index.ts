@@ -15,7 +15,6 @@ export interface State {
   card: Card;
   sets: Set[];
   cardSymbols: CardSymbol[];
-
 };
 
 export const state = combineReducers<State>({
