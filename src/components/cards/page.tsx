@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CardsResponse, SearchTerms, SearchOrder } from '../../model';
 import { Header } from '../../components';
-import { CardFullLayout } from '../../common/components/card';
+import { CardDisplay } from '../../common/components/card';
+import { CardFormat } from '../../common/constants/cardFormats';
 import { SearchControls } from './searchControls';
 
 interface Props {
@@ -12,21 +13,24 @@ interface Props {
 
 interface State {
     searchTerms: SearchTerms;
+    cardFormat: CardFormat;
 }
 
 export class CardsPage extends React.Component<Props, State>{
     constructor(props) {
         super(props);
         var searchTerms = {
-            q: "reaper",
+            q: "abbey",
             order: SearchOrder.Name,
             page: 1
         } as SearchTerms;
 
         this.state = {
-            searchTerms: searchTerms
+            searchTerms: searchTerms,
+            cardFormat: CardFormat.List
         };
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
+        this.changeListDisplay = this.changeListDisplay.bind(this);
     }
 
     public componentDidMount() {
@@ -34,28 +38,30 @@ export class CardsPage extends React.Component<Props, State>{
         this.props.fetchFilteredCards(this.state.searchTerms);
     }
 
-    private fetchFilteredCards(searchTerms: SearchTerms) {        
-        this.setState({
-            searchTerms: searchTerms
-        });
+    private fetchFilteredCards(searchTerms: SearchTerms) {
+        const newState = {...this.state, searchTerms};    
+        this.setState(newState);
         this.props.fetchFilteredCards(searchTerms);
     }
 
+    private changeListDisplay(cardFormat: CardFormat) {
+        const newState = {...this.state, cardFormat};
+        this.setState(newState);
+    }
+
     public render() {
-        const { searchTerms } = this.state;
+        const { searchTerms, cardFormat } = this.state;
         const { cardsResult } = this.props;
         
         return (
             <div className="cardsPage">
                 <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>
                 <div id="main" className="main">
-                    <SearchControls searchTerms={searchTerms} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={this.fetchFilteredCards} />
+                    <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={this.fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
                     {/* <SearchControlsMobile /> */}
-                    {cardsResult && cardsResult.cards.map(function(item, key) {
-                        return (
-                            <CardFullLayout card={item} key={key} />
-                        )
-                    })}
+                    {cardsResult &&
+                        <CardDisplay cards={cardsResult.cards} cardFormat={cardFormat}/>
+                    }
                     {!cardsResult && 
                         <div className="search-empty">
                             <div className="inner-flex">
@@ -68,14 +74,15 @@ export class CardsPage extends React.Component<Props, State>{
                             </p>
                             <p>
                                 <a className="button-primary js-back-link" href="/">Go Back</a>
-                                <a className="button-primary" href="/docs/reference">Syntax Guide</a>
+                                <a className="button-primary" href="/reference">Syntax Guide</a>
                                 <a className="button-primary" href="/advanced">Advanced Search</a>
                             </p>
                             </div>
                         </div>
                     }
-                    <SearchControls searchTerms={searchTerms} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={this.fetchFilteredCards} />
-                    {/* <SearchControlsMobile /> */}
+                    {cardsResult && cardsResult.total_cards > 9 &&
+                        <SearchControls searchTerms={searchTerms} cardFormat={cardFormat} resultCount={cardsResult ? cardsResult.total_cards : 0} hasMore={cardsResult ? cardsResult.has_more : false} fetchFilteredCards={this.fetchFilteredCards} changeListDisplay={this.changeListDisplay} />
+                    }
                 </div>
             </div>
         )

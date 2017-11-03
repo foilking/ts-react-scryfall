@@ -54,7 +54,7 @@ export class CardFullLayout extends React.Component<CardProps, CardState> {
                 <div className="inner-flex">
                     <CardImage card={card} isTransformed={this.state.isTransformed} isFlipped={this.state.isFlipped} isRotated={this.state.isRotated} />
                     <div className="card-actions">
-                        {card.layout === "transform" &&
+                        {(card.layout === "transform" || card.layout === "double_faced_token") &&
                             <button name="button" type="submit" 
                             className="button-primary button-icon-left" title="Transform Card" data-component="card-backface-button" 
                             onClick={event => this.transformClick()}>

@@ -25,7 +25,7 @@ export class CardImage extends React.Component<CardImageProps, CardImageState>  
     public render() {
         const {card} = this.props;
         const className = `card ${card.set} border-${card.border_color}`;
-        if (card.layout === "transform") {
+        if (card.layout === "transform" || card.layout === "double_faced_token") {
             const imageClass = `card-image ${this.props.isTransformed ? "flip-backside" : "" }`
             return (
                 <div className={imageClass}>

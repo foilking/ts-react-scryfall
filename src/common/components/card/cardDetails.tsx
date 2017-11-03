@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { numberToWords } from 'number-to-words';
-import { Card, CardProps } from '../../../model';
+import { CardProps } from '../../../model';
 import { CardLegalities } from './cardLegalities';
 import { CardSymbols } from './cardSymbols';
-import {OracleText} from './oracleText';
+import { OracleText } from './oracleText';
 
-export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
+export const CardDetails: React.StatelessComponent<CardProps> = ({ card }) => {
     const artistLink = `/search?q=%2B%2Ba%3A%22${card.artist.replace(' ', '+')}%22`
-    if (card.layout === "transform" || card.layout === "flip" || card.layout === "split") {
+    if (card.layout === "transform" || card.layout === "double_faced_token" || card.layout === "flip" || card.layout === "split") {
         const cardFront = card.card_faces[0];
         const cardBack = card.card_faces[1];
         return (
             <div className="card-text">
                 <h1 className="card-text-title">
                     {cardFront.name}
-                    {cardFront.mana_cost && 
+                    {cardFront.mana_cost &&
                         <span className="card-text-mana-cost">
                             <CardSymbols content={cardFront.mana_cost} cardName={cardFront.name} />
                         </span>
@@ -24,18 +23,18 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                     {cardFront.type_line}
                 </p>
                 <div className="card-text-box">
-                    {cardFront.oracle_text && 
+                    {cardFront.oracle_text &&
                         <OracleText oracleText={cardFront.oracle_text} oracleClass="card-text-oracle" />
                     }
-                    {cardFront.flavor_text && 
+                    {cardFront.flavor_text &&
                         <div className="card-text-flavor">
                             <p>
-                                {cardFront.flavor_text.split('\n').map((line, lineKey) => { 
+                                {cardFront.flavor_text.split('\n').map((line, lineKey) => {
                                     return (
                                         <text key={lineKey}>
                                             {line}
-                                            <br/>
-                                        </text>   
+                                            <br />
+                                        </text>
                                     );
                                 })}
                             </p>
@@ -54,7 +53,7 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                 }
                 <h1 className="card-text-title">
                     {cardBack.name}
-                    {cardBack.mana_cost && 
+                    {cardBack.mana_cost &&
                         <span className="card-text-mana-cost">
                             <CardSymbols content={cardBack.mana_cost} cardName={cardBack.name} />
                         </span>
@@ -64,18 +63,18 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                     {cardBack.type_line}
                 </p>
                 <div className="card-text-box">
-                    {cardBack.oracle_text && 
+                    {cardBack.oracle_text &&
                         <OracleText oracleText={cardBack.oracle_text} oracleClass="card-text-oracle" />
                     }
-                    {cardBack.flavor_text && 
+                    {cardBack.flavor_text &&
                         <div className="card-text-flavor">
                             <p>
-                                {cardBack.flavor_text.split('\n').map((line, lineKey) => { 
+                                {cardBack.flavor_text.split('\n').map((line, lineKey) => {
                                     return (
                                         <text key={lineKey}>
                                             {line}
-                                            <br/>
-                                        </text>   
+                                            <br />
+                                        </text>
                                     );
                                 })}
                             </p>
@@ -106,19 +105,19 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
                     {card.type_line}
                 </p>
                 <div className="card-text-box">
-                    
-                    {card.oracle_text && 
+
+                    {card.oracle_text &&
                         <OracleText oracleText={card.oracle_text} oracleClass="card-text-oracle" />
                     }
-                    {card.flavor_text && 
+                    {card.flavor_text &&
                         <div className="card-text-flavor">
                             <p>
-                                {card.flavor_text.split('\n').map((line, lineKey) => { 
+                                {card.flavor_text.split('\n').map((line, lineKey) => {
                                     return (
                                         <text key={lineKey}>
                                             {line}
-                                            <br/>
-                                        </text>   
+                                            <br />
+                                        </text>
                                     );
                                 })}
                             </p>
