@@ -14,9 +14,11 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({card}) => {
             <div className="card-text">
                 <h1 className="card-text-title">
                     {cardFront.name}
-                    <span className="card-text-mana-cost">
-                        <CardSymbols content={cardFront.mana_cost} cardName={cardFront.name} />
-                    </span>
+                    {cardFront.mana_cost && 
+                        <span className="card-text-mana-cost">
+                            <CardSymbols content={cardFront.mana_cost} cardName={cardFront.name} />
+                        </span>
+                    }
                 </h1>
                 <p className="card-text-type-line">
                     {cardFront.type_line}

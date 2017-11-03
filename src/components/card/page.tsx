@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router';
 import { Header } from '../../components';
-import { Card, SearchTerms } from '../../model';
+import { Card, SearchTerms, SearchOrder } from '../../model';
 import { CardFullLayout } from '../../common/components/card';
 
 interface Props {
@@ -20,6 +20,15 @@ interface State {
 export class CardPage extends React.Component<Props, State> {
     constructor() {
         super();
+        var searchTerms = {
+            q: "",
+            order: SearchOrder.Name,
+            page: 1
+        } as SearchTerms;
+
+        this.state = {
+            searchTerms: searchTerms
+        };
         this.fetchCardByCodeAndCollectorNumber = this.fetchCardByCodeAndCollectorNumber.bind(this);
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
     }
@@ -146,11 +155,19 @@ export class CardPage extends React.Component<Props, State> {
                                     <h6>Copy-Paste</h6>
                                     <ul className="toolbox-links">
                                         <li>
-                                            <a className="button-primary button-icon-left" rel="nofollow" href={card.image_uris.png}>
+                                            <a className="button-primary button-icon-left" rel="nofollow" href={card.layout ==="transform" ? card.card_faces[0].image_uris.png : card.image_uris.png}>
                                                 <svg aria-hidden="true" focusable="false" className="" width="12" height="15" viewBox="0 0 12 15" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v15h12v-15h-12zm10.909 13.929h-9.818v-12.857h9.818v12.857zm-4.909-3.214c-.602 0-1.091.48-1.091 1.071s.489 1.071 1.091 1.071 1.091-.48 1.091-1.071-.489-1.071-1.091-1.071zm3.818-8.571h-7.636v7.5h7.636v-7.5zm-1.091 6.429h-5.455v-5.357h5.455v5.357z"></path></svg>
                                                 Download PNG image
                                             </a>          
                                         </li>
+                                        {card.layout === "transform" &&
+                                            <li>
+                                                <a className="button-primary button-icon-left" rel="nofollow" href={card.card_faces[1].image_uris.png}>
+                                                    <svg aria-hidden="true" focusable="false" className="" width="12" height="15" viewBox="0 0 12 15" xmlns="http://www.w3.org/2000/svg"><path d="M0 0v15h12v-15h-12zm10.909 13.929h-9.818v-12.857h9.818v12.857zm-4.909-3.214c-.602 0-1.091.48-1.091 1.071s.489 1.071 1.091 1.071 1.091-.48 1.091-1.071-.489-1.071-1.091-1.071zm3.818-8.571h-7.636v7.5h7.636v-7.5zm-1.091 6.429h-5.455v-5.357h5.455v5.357z"></path></svg>
+                                                    Download back image
+                                                </a>          
+                                            </li>
+                                        }
                                         <li>
                                             <a className="button-primary button-icon-left" rel="nofollow" href="https://api.scryfall.com/cards/ema/219?format=text">
                                                 <svg aria-hidden="true" focusable="false" className="" width="11" height="15" viewBox="0 0 11 15" xmlns="http://www.w3.org/2000/svg"><path d="M6 0h-6v15h11v-9.643l-5-5.357zm0 1.515l3.586 3.842h-3.586v-3.842zm4 12.414h-9v-12.857h4v5.357h5v7.5zm-8-5.357h7v-1.071h-7v1.071zm0 2.143h7v-1.071h-7v1.071zm0 2.143h7v-1.071h-7v1.071z"></path></svg>

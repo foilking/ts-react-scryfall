@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { State } from '../../reducers';
 import { SearchTerms, SearchOrder } from '../../model';
 import { fetchFilteredCardsAction } from '../../common/actions/fetchFilteredCards';
-import { CardsPage } from './page';
+import { AdvanceSearchPage } from './page';
 
 const mapStateToProps = (state: State, ownProps: any) => ({
-    cardsResult: state.cardsResult,
     location: ownProps.location
 });
 
@@ -14,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchFilteredCards: (params: SearchTerms) => dispatch(fetchFilteredCardsAction(params)),
 });
 
-export const CardsPageContainer = connect(
+export const AdvanceSearchPageContainer = connect(
     mapStateToProps,
     mapDispatchToProps,
-)(CardsPage);
+)(AdvanceSearchPage);

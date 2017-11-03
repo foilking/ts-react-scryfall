@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { State } from '../../reducers';
 import { SearchTerms } from '../../model';
 import { fetchCardByCodeAndCollectorNumberAsyncAction } from './actions/fetchCard';
-import { fetchFilteredCardsAction } from './actions/fetchFilteredCards';
+import { fetchFilteredCardsAction } from '../../common/actions/fetchFilteredCards';
 import { CardPage } from './page';
 
 const mapStateToProps = (state: State, ownProps: any) => ({

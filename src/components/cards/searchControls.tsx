@@ -28,22 +28,18 @@ interface SortState {
 {/* TODO: Make this not static */}
 export class SearchControls extends React.Component<SortProps, SortState> {
     constructor(props) {  
-        console.log("Search Controls Constructor");
-        console.log(props);
-        
-              
         super(props);
         this.orderChange = this.orderChange.bind(this);
-    }
-
-    public componentWillMount() {
-        console.log("Search Controls will mount");
-        console.log(this.props);
+        this.updatePage = this.updatePage.bind(this);
     }
 
     private orderChange (order: SearchOrder) {        
         const newSearchTerms = {...this.props.searchTerms, order};
-        
+        this.props.fetchFilteredCards(newSearchTerms);
+    }
+
+    private updatePage (page: number) {
+        const newSearchTerms = {...this.props.searchTerms, page};
         this.props.fetchFilteredCards(newSearchTerms);
     }
 
@@ -62,10 +58,10 @@ export class SearchControls extends React.Component<SortProps, SortState> {
                     <div className="search-controls-options" data-component="search-controls-form">
                         {cardsShown} cards
                         <label htmlFor="as">as</label>
-                        <select name="as" id="as" className="button-select mq-short" >
+                        <select name="as" id="as" className="button-select mq-short" defaultValue="full">
                             <option value="">Images</option>
                             <option value="checklist">Pricelist</option>
-                            <option value="full" selected>Full</option>
+                            <option value="full">Full</option>
                         </select>
 
                         <a className="button-conjoined-left button-icon-left js-search-as mq-wide" href="/search?q=">Images</a>        
@@ -85,19 +81,19 @@ export class SearchControls extends React.Component<SortProps, SortState> {
                     </div>
 
                     <div className="search-controls-pagination">
-                        <span aria-hidden="true" className={`${searchTerms.page > 1 ? "button-primary" : "button-disabled"} button-icon-center`}>
+                        <span aria-hidden="true" className={`${searchTerms.page > 1 ? "button-primary" : "button-disabled"} button-icon-center`} onClick={event => this.updatePage(1)}>
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M18 4.438l-1.375-1.438-12.625 12 12.563 12 1.437-1.406-11.094-10.594 11.094-10.562zm12 0l-1.375-1.438-12.625 12 12.563 12 1.437-1.406-11.094-10.594 11.094-10.562zM2 3h-1.66v24h1.66z"></path></svg>                    
                             <span className="vh">First Page</span>
                         </span>        
-                        <span aria-hidden="true" className={`${searchTerms.page > 1 ? "button-primary" : "button-disabled"} button-icon-left`}>
+                        <span aria-hidden="true" className={`${searchTerms.page > 1 ? "button-primary" : "button-disabled"} button-icon-left`} onClick={event => this.updatePage(searchTerms.page - 1)}>
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M20.625 3l-12.625 12 12.563 12 1.437-1.406-11.094-10.594 11.094-10.562z"></path></svg>
                             Previous
                         </span>
-                        <span aria-hidden="true" className="button-disabled" data-track="{&quot;category&quot;:&quot;Search Controls&quot;,&quot;action&quot;:&quot;Paginate&quot;,&quot;label&quot;:&quot;Next&quot;}">
+                        <span aria-hidden="true" className={`${hasMore ? "button-primary" : "button-disabled"}`} onClick={event => this.updatePage(searchTerms.page + 1)}>
                             Next 20
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M9.375 3l12.625 12-12.562 12-1.438-1.406 11.094-10.594-11.094-10.562z"></path></svg>
                         </span>        
-                        <span aria-hidden="true" className="button-disabled button-icon-center" data-track="{&quot;category&quot;:&quot;Search Controls&quot;,&quot;action&quot;:&quot;Paginate&quot;,&quot;label&quot;:&quot;Last&quot;}">
+                        <span aria-hidden="true" className={`${hasMore ? "button-primary" : "button-disabled"} button-icon-center`} data-track="{&quot;category&quot;:&quot;Search Controls&quot;,&quot;action&quot;:&quot;Paginate&quot;,&quot;label&quot;:&quot;Last&quot;}">
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.438l1.375-1.438 12.625 12-12.563 12-1.437-1.406 11.094-10.594-11.094-10.562zm-12 0l1.375-1.438 12.625 12-12.563 12-1.437-1.406 11.094-10.594-11.094-10.562zM28 3h1.66v24h-1.66z"></path></svg>
                             <span className="vh">Last Page</span>
                         </span>
