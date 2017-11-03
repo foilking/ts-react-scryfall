@@ -49,12 +49,12 @@ export const CardPrints: React.StatelessComponent<Props> = ({card}) => {
                     </td>
                     <td>
                         <a className="currency-usd" rel="nofollow" href={card.purchase_uris.tcgplayer}>
-                        ${card.usd}
+                        {card.usd && `$${card.usd}`}
                         </a>          
                     </td>
                     <td>
                         <a className="currency-eur" rel="nofollow" href={card.purchase_uris.magiccardmarket}>
-                        €{card.eur}
+                        {card.eur && `€${card.eur}`}
                         </a>          
                     </td>
                     <td>

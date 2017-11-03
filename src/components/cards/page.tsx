@@ -20,14 +20,14 @@ export class CardsPage extends React.Component<Props, State>{
     constructor(props) {
         super(props);
         var searchTerms = {
-            q: "abbey",
+            q: "jace",
             order: SearchOrder.Name,
             page: 1
         } as SearchTerms;
 
         this.state = {
             searchTerms: searchTerms,
-            cardFormat: CardFormat.List
+            cardFormat: CardFormat.Full
         };
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
         this.changeListDisplay = this.changeListDisplay.bind(this);

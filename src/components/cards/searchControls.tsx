@@ -109,7 +109,7 @@ export class SearchControls extends React.Component<SortProps, SortState> {
                             Previous
                         </span>
                         <span aria-hidden="true" className={`${hasMore ? "button-primary" : "button-disabled"}`} onClick={event => this.updatePage(searchTerms.page + 1)}>
-                            Next 20
+                            Next 175
                             <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M9.375 3l12.625 12-12.562 12-1.438-1.406 11.094-10.594-11.094-10.562z"></path></svg>
                         </span>        
                         <span aria-hidden="true" className={`${hasMore ? "button-primary" : "button-disabled"} button-icon-center`} data-track="{&quot;category&quot;:&quot;Search Controls&quot;,&quot;action&quot;:&quot;Paginate&quot;,&quot;label&quot;:&quot;Last&quot;}">
