@@ -15,7 +15,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
     constructor(props) {
         super(props);
         var searchTerms = {
-            q: "reaper",
+            q: "",
             order: SearchOrder.Name,
             page: 1
         } as SearchTerms;

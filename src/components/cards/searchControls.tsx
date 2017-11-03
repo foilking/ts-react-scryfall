@@ -25,7 +25,6 @@ interface SortProps {
 interface SortState {
 }
 
-{/* TODO: Make this not static */}
 export class SearchControls extends React.Component<SortProps, SortState> {
     constructor(props) {  
         super(props);

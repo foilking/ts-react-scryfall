@@ -1,7 +1,7 @@
 export * from './header';
+export * from './footer';
 export * from './about';
-export * from './members';
-export * from './member';
+export * from './reference';
 
 
 export * from './cards';

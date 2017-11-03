@@ -21,7 +21,6 @@ export class Header extends React.Component<HeaderProps, State>{
         document.title = q;
         
         const newSearchTerms = {...this.props.searchTerms, q};
-
         this.props.fetchFilteredCards(newSearchTerms);
     }
   };
@@ -62,7 +61,7 @@ export class Header extends React.Component<HeaderProps, State>{
               <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M10 6h-4v2h4v-2zm14 0h-12v2h12v-2zm-22-4v26h26v-26h-26zm24 24h-22v-14h22v14zm0-16h-22v-6h22v6z"></path></svg>
               Advanced
             </a>
-            <a className="header-utility-link" data-track="{&quot;category&quot;:&quot;Navigation&quot;,&quot;action&quot;:&quot;Navigate&quot;,&quot;label&quot;:&quot;Syntax Guide&quot;}" href="/docs/reference">
+            <a className="header-utility-link" href="/reference">
               <svg aria-hidden="true" focusable="false" className="" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M15 0c-8.284 0-15 6.716-15 15s6.716 15 15 15 15-6.716 15-15-6.716-15-15-15zm0 28c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zm-1-4h2v-4h-2v4zm1-18c-2.958 0-5.2 1.834-5.2 5h2c0-2.041 1.389-3 3.2-3 1.598 0 3 .935 3 2 0 3.281-4 2.656-4 8h2c-.146-4.063 4-3.646 4-8 0-2.209-2.238-4-5-4z"></path></svg>
               Syntax
             </a>      

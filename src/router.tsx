@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { App } from './app';
-import { CardsPageContainer, CardPageContainer, AdvanceSearchPageContainer, About } from './components';
+import { CardsPageContainer, CardPageContainer, AdvanceSearchPageContainer, About, Reference } from './components';
 
 export const AppRouter: React.StatelessComponent<{}> = () => {
   return (
@@ -15,6 +15,7 @@ export const AppRouter: React.StatelessComponent<{}> = () => {
           <Route path="/card/:code/:number" component={CardPageContainer} />
           <Route path="/advanced" component={AdvanceSearchPageContainer} />
           <Route path="/about" component={About} />
+          <Route path="/reference" component={Reference} />
         </Route>
       </Router>
     </Provider>
