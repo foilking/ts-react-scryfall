@@ -14,8 +14,7 @@ const mapStateToProps = (state: State, ownProps: any) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchCardByCodeAndCollectorNumber: (setCode: string, collectorNumber: string) => dispatch(fetchCardByCodeAndCollectorNumberAsyncAction(setCode, collectorNumber)),
-    fetchFilteredCards: (params: SearchTerms) => dispatch(fetchFilteredCardsAction(params))
+    fetchCardByCodeAndCollectorNumber: (setCode: string, collectorNumber: string) => dispatch(fetchCardByCodeAndCollectorNumberAsyncAction(setCode, collectorNumber))
 });
 
 export const CardPageContainer = connect(

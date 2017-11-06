@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { browserHistory } from 'react-router';
 import { CardsResponse, SearchTerms, SearchOrder } from '../../model';
 import { Header } from '../../components';
 import { CardDisplay } from '../../common/components/card';
@@ -7,6 +8,7 @@ import { SearchControls } from './searchControls';
 
 interface Props {
     cardsResult: CardsResponse;
+    searchTerms: SearchTerms;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     location: Location;
 }
@@ -18,28 +20,32 @@ interface State {
 
 export class CardsPage extends React.Component<Props, State>{
     constructor(props) {
-        super(props);
+        super(props);       
+
         var searchTerms = {
-            q: "jace",
+            q: "",
             order: SearchOrder.Name,
             page: 1
         } as SearchTerms;
 
         this.state = {
-            searchTerms: searchTerms,
+            searchTerms: this.props.searchTerms || searchTerms,
             cardFormat: CardFormat.Full
         };
+
+        document.title = this.state.searchTerms.q || "Search";
+        this.props.fetchFilteredCards(this.state.searchTerms);
+        
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
         this.changeListDisplay = this.changeListDisplay.bind(this);
     }
 
-    public componentDidMount() {
-        document.title = this.state.searchTerms.q || "Search";
-        this.props.fetchFilteredCards(this.state.searchTerms);
-    }
-
     private fetchFilteredCards(searchTerms: SearchTerms) {
         const newState = {...this.state, searchTerms};    
+        const location = Object.assign({}, browserHistory.getCurrentLocation());
+
+        Object.assign(location.query, searchTerms);
+        browserHistory.push(location);
         this.setState(newState);
         this.props.fetchFilteredCards(searchTerms);
     }

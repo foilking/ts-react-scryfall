@@ -8,51 +8,32 @@ interface Props {
     setCode: string;
     collectorNumber: string;
     fetchCardByCodeAndCollectorNumber: (setCode: string, collectorNumber: string) => void;
-    fetchFilteredCards: (searchTerms: SearchTerms) => void;
-    card: Card;
     location: Location;
+    card: Card;
 }
 
 interface State {
-    searchTerms: SearchTerms;
 }
 
 export class CardPage extends React.Component<Props, State> {
-    constructor() {
-        super();
-        var searchTerms = {
-            q: "",
-            order: SearchOrder.Name,
-            page: 1
-        } as SearchTerms;
-
-        this.state = {
-            searchTerms: searchTerms
-        };
-        this.fetchCardByCodeAndCollectorNumber = this.fetchCardByCodeAndCollectorNumber.bind(this);
-        this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
+    constructor(props) {
+        super(props);
+        console.log(props);
+        
     }
 
     public componentDidMount() {
         this.props.fetchCardByCodeAndCollectorNumber(this.props.setCode, this.props.collectorNumber);
     }
 
-    private fetchCardByCodeAndCollectorNumber() {
-        this.props.fetchCardByCodeAndCollectorNumber(this.props.setCode, this.props.collectorNumber);
-    }
-    
-    private fetchFilteredCards() {
-        this.props.fetchFilteredCards(this.state.searchTerms);
-    }
-
     public render() {
         // Making sure the card is available
-        if (this.props.card) {
-            document.title = this.props.card.name;
-            const {card, fetchFilteredCards} = this.props;
+        const { card } = this.props;
+        if (card) {
+            document.title = card.name;
             return (
                 <div className="cardPage">
-                    <Header searchTerms={this.state.searchTerms} fetchFilteredCards={fetchFilteredCards} location={location}/>
+                    <Header searchTerms={{} as SearchTerms} fetchFilteredCards={null} location={location}/>
                     <div id="main" className="main">
                         <CardFullLayout card={card}/>
                         <div className="toolbox">

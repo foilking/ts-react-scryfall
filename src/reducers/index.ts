@@ -1,27 +1,21 @@
 import { combineReducers } from 'redux';
-import { MemberEntity, MemberErrors, Card, SearchTerms, Set, CardSymbol, CardsResponse } from '../model';
-import { membersReducer } from './members';
-import { memberReducer } from './member';
-import { memberErrorsReducer } from './memberErrors';
+import { Card, SearchTerms, Set, CardSymbol, CardsResponse } from '../model';
 import { cardsReducer } from './cards';
 import { cardReducer } from './card';
 import { cardSymbolsReducer } from './cardSymbols';
+import { searchTermsReducer } from './searchTerms';
 
 export interface State {
-  members: MemberEntity[];
-  member: MemberEntity;
-  memberErrors: MemberErrors;
   cardsResult: CardsResponse;
   card: Card;
-  sets: Set[];
+  // sets: Set[];
   cardSymbols: CardSymbol[];
+  searchTerms: SearchTerms;
 };
 
-export const state = combineReducers<State>({
-  members: membersReducer,
-  member: memberReducer,
-  memberErrors: memberErrorsReducer,
+export const rootReducer = combineReducers<State>({
   cardsResult: cardsReducer,
   card: cardReducer,
-  cardSymbols: cardSymbolsReducer
+  cardSymbols: cardSymbolsReducer,
+  searchTerms: searchTermsReducer
 });

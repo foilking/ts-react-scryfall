@@ -79,11 +79,16 @@ export const CardDetails: React.StatelessComponent<CardProps> = ({ card }) => {
                                 })}
                             </p>
                         </div>
-                    }
+                    }dd
                 </div>
-                {cardBack.type_line && cardBack.type_line.includes('Creature') &&
+                {cardBack.type_line && (cardBack.type_line.includes('Creature') || (cardBack.type_line.includes('Planeswalker') && cardBack.loyalty)) &&
                     <div className="card-text-stats">
-                        {cardBack.power}/{cardBack.toughness}
+                        {cardBack.type_line.includes('Creature') &&
+                            `${cardBack.power}/${cardBack.toughness}`
+                        }
+                        {cardBack.type_line.includes('Planeswalker') && cardBack.loyalty &&
+                            `Loyalty: ${cardBack.loyalty}`
+                        }
                     </div>
                 }
                 <p className="card-text-artist">

@@ -37,7 +37,7 @@ export const CardPrints: React.StatelessComponent<Props> = ({card}) => {
                 </tr>
             </thead>
             <tbody>
-                {/* TODO: Show all prints */}
+                {/* API doesn't give links to all prints. */}
                 <tr className="current">
                     <td>
                         <Link to={`/card/${card.set}/${card.collector_number}`}>
@@ -62,7 +62,10 @@ export const CardPrints: React.StatelessComponent<Props> = ({card}) => {
                         {card.tix}
                         </a>          
                     </td>
-                </tr>    
+                </tr>   
+                <tr>
+                    <td><Link to={`/cards?q=%2B%2B!"${card.name}"`}>See all prints</Link></td>
+                </tr> 
             </tbody>
         </table>
 

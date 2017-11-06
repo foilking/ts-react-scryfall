@@ -10,7 +10,6 @@ export const AppRouter: React.StatelessComponent<{}> = () => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path="/" component={App} >
-          <IndexRoute component={CardsPageContainer} />
           <Route path="/cards" component={CardsPageContainer} />
           <Route path="/card/:code/:number" component={CardPageContainer} />
           <Route path="/advanced" component={AdvanceSearchPageContainer} />
