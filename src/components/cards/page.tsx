@@ -11,6 +11,7 @@ interface Props {
     searchTerms: SearchTerms;
     fetchFilteredCards: (searchTerms: SearchTerms) => void;
     location: Location;
+    updateSearchTerms: (searchTerms: SearchTerms) => void;
 }
 
 interface State {
@@ -35,7 +36,8 @@ export class CardsPage extends React.Component<Props, State>{
 
         document.title = this.state.searchTerms.q || "Search";
         this.props.fetchFilteredCards(this.state.searchTerms);
-        
+        this.props.updateSearchTerms(this.state.searchTerms);
+
         this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
         this.changeListDisplay = this.changeListDisplay.bind(this);
     }
@@ -48,6 +50,7 @@ export class CardsPage extends React.Component<Props, State>{
         browserHistory.push(location);
         this.setState(newState);
         this.props.fetchFilteredCards(searchTerms);
+        this.props.updateSearchTerms(searchTerms);
     }
 
     private changeListDisplay(cardFormat: CardFormat) {

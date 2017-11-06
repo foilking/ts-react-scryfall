@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, browserHistory } from 'react-router';
-import { SearchTerms } from '../model';
+import { SearchTerms, SearchOrder } from '../model';
 
 interface HeaderProps {
   searchTerms: SearchTerms;
@@ -26,7 +26,8 @@ export class Header extends React.Component<HeaderProps, State>{
     if (keyCode === 13) {   
       document.title = q;
       
-      const newSearchTerms = { ...this.props.searchTerms, q };
+      const newSearchTerms = { ...this.props.searchTerms, q, page: 1, order: SearchOrder.Name };
+      
       this.props.fetchFilteredCards(newSearchTerms);      
     }
   };

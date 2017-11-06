@@ -17,9 +17,7 @@ interface State {
 
 export class CardPage extends React.Component<Props, State> {
     constructor(props) {
-        super(props);
-        console.log(props);
-        
+        super(props);        
     }
 
     public componentDidMount() {
