@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { Header } from './header';
-import { SearchTerms, SearchOrder } from '../model';
 
 export const Reference: React.StatelessComponent<{}> = () => {
   return (
     <div id="reference">
-      <Header searchTerms={{} as SearchTerms} fetchFilteredCards={null} location={location} />
 
       <div className="reference-jump">
         <div className="inner-flex">

@@ -1,6 +1,3 @@
-import _filter from 'lodash/filter';
-import _orderBy from 'lodash/orderBy';
-import _uniqBy from 'lodash/uniqBy';
 import _capitalize from 'lodash/capitalize';
 import { Card, CardsResponse, CardResponse, SearchTerms, Set, SetsResponse, CardSymbol } from '../../model';
 import * as QueryString from 'query-string';
@@ -153,7 +150,7 @@ const fetchSetsAsync = (): Promise<Set[]> => {
 }
 
 const mapResponseToSets = (response: SetsResponse): Set[] => {
-    const sets = response.sets;
+    const sets = response.data;
 
     return sets.map(mapToSet);
 }
@@ -162,13 +159,12 @@ const mapToSet = (set): Set => {
     return {
         code: set.code,
         name: set.name,
-        type: set.type,
-        border: set.border,
-        mkm_id: set.mkm_id,
-        releaseDate: set.releaseDate,
-        magicCardsInfoCode: set.magicCardsInfoCode,
-        gathererCode: set.gathererCode,
-        block: set.block
+        set_type: set.set_type,
+        card_count: set.card_count,
+        parent_set_code: set.parent_set_code,
+        digital: set.digital,
+        foil: set.foil,
+        icon_svg_uri: set.icon_svg_uri
     }
 };
 
@@ -176,5 +172,6 @@ export const scryfall = {
     fetchFilteredCardsAsync,
     fetchCardByMultiverseIdAsync,
     fetchCardByCodeAndCollectorNumberAsync,
-    fetchCardSymbology
+    fetchCardSymbology,
+    fetchSetsAsync
 };

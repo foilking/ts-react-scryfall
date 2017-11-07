@@ -4,11 +4,12 @@ import { cardsReducer } from './cards';
 import { cardReducer } from './card';
 import { cardSymbolsReducer } from './cardSymbols';
 import { searchTermsReducer } from './searchTerms';
+import { setsReducer } from './sets';
 
 export interface State {
   cardsResult: CardsResponse;
   card: Card;
-  // sets: Set[];
+  sets: Set[];
   cardSymbols: CardSymbol[];
   searchTerms: SearchTerms;
 };
@@ -17,5 +18,6 @@ export const rootReducer = combineReducers<State>({
   cardsResult: cardsReducer,
   card: cardReducer,
   cardSymbols: cardSymbolsReducer,
-  searchTerms: searchTermsReducer
+  searchTerms: searchTermsReducer,
+  sets: setsReducer
 });

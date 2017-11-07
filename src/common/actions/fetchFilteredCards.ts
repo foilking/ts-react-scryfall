@@ -1,5 +1,5 @@
 import { actionTypes } from '../constants/actionTypes';
-import { Card, SearchTerms, CardsResponse } from '../../model';
+import { SearchTerms, CardsResponse } from '../../model';
 import { scryfall } from '../../api/scryfall';
 
 export const fetchFilteredCardsAction = (params: SearchTerms) => (dispatch) => {

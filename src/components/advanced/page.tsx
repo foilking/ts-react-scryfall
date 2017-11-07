@@ -37,7 +37,6 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
         const { searchTerms } = this.state;
         return (
             <div id="advancedSearch">
-                <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location} />
                 <input name="utf8" value="✓" type="hidden" />
                 <div className="inner-flex">
                     <div className="form-row">

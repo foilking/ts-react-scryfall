@@ -1,15 +1,14 @@
 export interface Set {
     code: string;
     name: string;
-    type: string;
-    border: string;
-    mkm_id?: number;
-    releaseDate: string;
-    magicCardsInfoCode: string;
-    gathererCode: string;
-    block: string;
+    set_type: string;
+    card_count: number;
+    parent_set_code: string;
+    digital: boolean;
+    foil: boolean;
+    icon_svg_uri: string;
 }
 
 export interface SetsResponse {
-    sets: Set[]
+    data: Set[]
 }
