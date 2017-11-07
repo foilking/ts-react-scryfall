@@ -53,7 +53,8 @@ export class App extends React.Component<Props, State>{
     return (
         <div id="body">
           <Header searchTerms={searchTerms} fetchFilteredCards={this.fetchFilteredCards} location={location}/>
-          {React.cloneElement(this.props.children, { fetchFilteredCards: this.fetchFilteredCards })}
+          {children &&
+            React.cloneElement(children, { fetchFilteredCards: this.fetchFilteredCards })}
           <Footer />
       </div>
     );
