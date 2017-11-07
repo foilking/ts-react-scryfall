@@ -14,6 +14,7 @@ interface State {
 export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State> {
     constructor(props) {
         super(props);
+        document.title = "Advance Search";
         var searchTerms = {
             q: "",
             order: SearchOrder.Name,

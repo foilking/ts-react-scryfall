@@ -2483,6 +2483,13 @@ img.card.cei,img.card.ced {
  font-family:monospace;
  margin-left:0.25em
 }
+.set-symbol img {
+    left:9px;
+    max-height:24px;
+    top:14px;
+    width:24px;
+}
+
 .currency-usd {
  color:#246782 !important;
  text-align:right !important;
