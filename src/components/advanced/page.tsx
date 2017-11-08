@@ -3,8 +3,6 @@ import { SearchTerms, SearchOrder } from '../../model';
 import { Header } from '../../components';
 
 interface AdvanceSearchProps {
-    fetchFilteredCards: (searchTerms: SearchTerms) => void;
-    location: Location;
 }
 
 interface State {
@@ -24,20 +22,19 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
         this.state = {
             searchTerms: searchTerms
         };
-        this.fetchFilteredCards = this.fetchFilteredCards.bind(this);
     }
-    
-    private fetchFilteredCards(searchTerms: SearchTerms) {        
-        this.setState({
-            searchTerms: searchTerms
-        });
-        this.props.fetchFilteredCards(searchTerms);
+
+    private buildAdvancedSearch() {
+        const oracleSearchPrefix = "o:";
+        const typeSearchPrefix = "t:";
+        const colorSearchPrefix = "c≥";
+
     }
 
     public render() {
         const { searchTerms } = this.state;
         return (
-            <div id="advancedSearch">
+            <div className="form-layout advanced-search">
                 <input name="utf8" value="✓" type="hidden" />
                 <div className="inner-flex">
                     <div className="form-row">
