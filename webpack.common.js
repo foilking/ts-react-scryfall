@@ -23,16 +23,16 @@ module.exports = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['build']),
         new HtmlWebpackPlugin({
-            filename: 'index.html', //Name of file in ./dist/
+            filename: 'index.html', //Name of file in ./build/
             template: 'index.html', //Name of template in ./src
             hash: true,
         })
     ],
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(basePath, 'dist')
+        path: path.resolve(basePath, 'build')
     },
     module: {
       rules: [
