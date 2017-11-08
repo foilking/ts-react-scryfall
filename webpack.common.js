@@ -4,13 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 var basePath = __dirname;
 
 module.exports = {
-    context: path.join(basePath, 'src'),
+    context: __dirname,
     resolve: {
         extensions: ['.js', '.ts', '.tsx']
     },
     entry: {
-        app: './index.tsx',
-        appStyles: './css/scryfall.css',
+        app: './src/index.tsx',
+        appStyles: './src/css/scryfall.css',
         vendor: [
           'react',
           'react-dom',
