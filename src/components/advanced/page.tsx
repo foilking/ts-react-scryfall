@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Select from 'react-select';
 import { SearchTerms, SearchOrder } from '../../model';
 import { Header } from '../../components';
 
@@ -6,21 +7,22 @@ interface AdvanceSearchProps {
 }
 
 interface State {
-    searchTerms: SearchTerms;
+    name: string;
+    oracle: string;
+    type: string;
+    mana: string;
 }
 
 export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State> {
     constructor(props) {
         super(props);
         document.title = "Advance Search";
-        var searchTerms = {
-            q: "",
-            order: SearchOrder.Name,
-            page: 1
-        } as SearchTerms;
 
         this.state = {
-            searchTerms: searchTerms
+            name: "",
+            oracle: "",
+            type: "",
+            mana: ""
         };
     }
 
@@ -31,8 +33,14 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
 
     }
 
+    private onTextFieldChange(fieldName: string, fieldValue: string) {
+        const newState = {... this.state, [fieldName]: fieldValue};
+        console.log(newState);
+        
+        this.setState(newState);
+    }
+
     public render() {
-        const { searchTerms } = this.state;
         return (
             <div className="form-layout advanced-search">
                 <input name="utf8" value="✓" type="hidden" />
@@ -45,7 +53,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" />
+                                <input name="name" id="name" className="form-input" placeholder="Any words in the name, e.g. “Fire”" type="text" value={this.state.name} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)}  />
                             </div>
                         </div>
 
@@ -57,21 +65,21 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" />
+                                <input name="oracle" id="oracle" className="form-input" placeholder="Any Oracle text, e.g. “draw a card”" type="text" value={this.state.oracle} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                                 <select className="advanced-search-subjoiner js-advanced-search-subjoiner" data-field-id="oracle" data-separator="" aria-hidden="true">
                                     <option value="">Add symbol</option>
-                                    <option value="{T}">{`T`} – tap this permanent</option>
-                                    <option value="{Q}">{`Q`} – untap this permanent</option>
-                                    <option value="{E}">{`E`} – an energy counter</option>
-                                    <option value="{PW}">{`PW`} – planeswalker</option>
-                                    <option value="{CHAOS}">{`CHAOS`} – chaos</option>
-                                    <option value="{W}">{`W`} – one white mana</option>
-                                    <option value="{U}">{`U`} – one blue mana</option>
-                                    <option value="{B}">{`B`} – one black mana</option>
-                                    <option value="{R}">{`R`} – one red mana</option>
-                                    <option value="{G}">{`G`} – one green mana</option>
-                                    <option value="{C}">{`C`} – one colorless mana</option>
-                                    <option value="{X}">{`X`} – X generic mana</option>
+                                    <option value="{T}">{`{T}`} – tap this permanent</option>
+                                    <option value="{Q}">{`{Q}`} – untap this permanent</option>
+                                    <option value="{E}">{`{E}`} – an energy counter</option>
+                                    <option value="{PW}">{`{PW}`} – planeswalker</option>
+                                    <option value="{CHAOS}">{`{CHAOS}`} – chaos</option>
+                                    <option value="{W}">{`{W}`} – one white mana</option>
+                                    <option value="{U}">{`{U}`} – one blue mana</option>
+                                    <option value="{B}">{`{B}`} – one black mana</option>
+                                    <option value="{R}">{`{R}`} – one red mana</option>
+                                    <option value="{G}">{`{G}`} – one green mana</option>
+                                    <option value="{C}">{`{C}`} – one colorless mana</option>
+                                    <option value="{X}">{`{X}`} – X generic mana</option>
                                     <option value="{0}">{0} – zero mana</option>
                                     <option value="{1}">{1} – one generic mana</option>
                                     <option value="{2}">{2} – two generic mana</option>
@@ -125,7 +133,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         </label>
                         <div className="form-row-content">
                             <div className="form-row-content-band">
-                                <input name="type" id="type" className="form-input" placeholder="Enter any card types, e.g. “legendary”" type="text" />
+                                <input name="type" id="type" className="form-input" placeholder="Enter any card types, e.g. “legendary”" type="text" value={this.state.type} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                             </div>
 
                             <div className="form-row-content-band">
@@ -221,7 +229,7 @@ export class AdvanceSearchPage extends React.Component<AdvanceSearchProps, State
                         <div className="form-row-content">
 
                             <div className="form-row-content-band">
-                                <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" />
+                                <input name="mana" id="mana" className="form-input short" placeholder="Any mana symbols, e.g. “{W}{W}”" type="text" value={this.state.mana} onChange={event => this.onTextFieldChange(event.currentTarget.name, event.currentTarget.value)} />
                                 <select className="advanced-search-subjoiner js-advanced-search-subjoiner" data-field-id="mana" data-separator="" aria-hidden="true">
                                     <option value="">Add symbol</option>
                                     <option value="{W}">{`W`} – one white mana</option>

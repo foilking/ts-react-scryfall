@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { State } from '../../reducers';
-import { SearchTerms, SearchOrder } from '../../model';
-import { fetchFilteredCardsAction } from '../../common/actions';
+import { Set } from '../../model';
+import { fetchSetsAction } from '../../common/actions';
 import { AdvanceSearchPage } from './page';
 
 const mapStateToProps = (state: State, ownProps: any) => ({
-    location: ownProps.location
+    sets: state.sets
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchFilteredCards: (params: SearchTerms) => dispatch(fetchFilteredCardsAction(params)),
+    fetchSets: () => dispatch(fetchSetsAction()),
 });
 
 export const AdvanceSearchPageContainer = connect(
